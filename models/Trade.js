@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const tradeSchema = new Schema({
+  user_id: String,
   title: String,
+  symbol:String,
   body: String,
   image: String,
   createdAt: {

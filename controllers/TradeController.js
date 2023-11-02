@@ -2,7 +2,7 @@ const tradeService = require("../services/TradeService");
 
 exports.getAllTrades = async (req, res) => {
   try {
-    const trades = await tradeService.getAllTrades();
+    const trades = await tradeService.getAllTrades(req.query);
     res.json({ data: trades, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });

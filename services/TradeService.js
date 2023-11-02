@@ -1,7 +1,7 @@
 const TradeModel = require("../models/Trade");
 
-exports.getAllTrades = async () => {
-  return await TradeModel.find();
+exports.getAllTrades = async (fobj) => {
+  return await TradeModel.find(fobj);
 };
 
 exports.createTrade = async (blog) => {
