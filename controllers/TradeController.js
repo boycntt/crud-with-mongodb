@@ -11,7 +11,7 @@ exports.getAllTrades = async (req, res) => {
 
 exports.createTrade = async (req, res) => {
   try {
-    const trade = await tradeService.createtrade(req.body);
+    const trade = await tradeService.createTrade(req.body);
     res.json({ data: trade, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
