@@ -2,6 +2,7 @@ const tradeService = require("../services/TradeService");
 
 exports.getAllTrades = async (req, res) => {
   try {
+    res.header("Access-Control-Allow-Origin", "*");
     const trades = await tradeService.getAllTrades(req.query);
     res.json({ data: trades, status: "success" });
   } catch (err) {
@@ -11,6 +12,7 @@ exports.getAllTrades = async (req, res) => {
 
 exports.createTrade = async (req, res) => {
   try {
+    res.header("Access-Control-Allow-Origin", "*");
     const trade = await tradeService.createTrade(req.body);
     res.json({ data: trade, status: "success" });
   } catch (err) {
@@ -20,6 +22,7 @@ exports.createTrade = async (req, res) => {
 
 exports.getTradeById = async (req, res) => {
   try {
+    res.header("Access-Control-Allow-Origin", "*");
     const trade = await tradeService.getTradeById(req.params.id);
     res.json({ data: trade, status: "success" });
   } catch (err) {
@@ -29,6 +32,7 @@ exports.getTradeById = async (req, res) => {
 
 exports.updateTrade = async (req, res) => {
   try {
+    res.header("Access-Control-Allow-Origin", "*");
     const trade = await tradeService.updateTrade(req.params.id, req.body);
     res.json({ data: trade, status: "success" });
   } catch (err) {
@@ -38,6 +42,7 @@ exports.updateTrade = async (req, res) => {
 
 exports.deleteTrade = async (req, res) => {
   try {
+    res.header("Access-Control-Allow-Origin", "*");
     const trade = await tradeService.deleteTrade(req.params.id);
     res.json({ data: trade, status: "success" });
   } catch (err) {
