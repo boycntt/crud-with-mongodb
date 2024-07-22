@@ -5,6 +5,7 @@ const tradeRouter = require("./routes/TradeRoutes");
 const snippetRouter = require("./routes/SnippetRoutes");
 const tradeContentRouter = require("./routes/TradeContentRoutes");
 const userRouter = require("./routes/UserRoutes");
+const customerRouter = require("./routes/CustomerRoutes");
 require('dotenv').config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use("/api/trades", tradeRouter);
 app.use("/api/snippets", snippetRouter);
 app.use("/api/tradecontents",tradeContentRouter );
 app.use("/api/users", userRouter);
+app.use("/api/customers", customerRouter);
 
 //configure mongoose
 mongoose.connect(
