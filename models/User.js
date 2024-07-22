@@ -17,6 +17,7 @@ const userSchema = new Schema({
     unique: true,
   },
   avatar: String,
+  oauthId:String,
   createdAt: {
     type: Date,
     default: Date.now,
