@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const blogRouter = require("./routes/BlogRoutes");
 const tradeRouter = require("./routes/TradeRoutes");
+const snippetRouter = require("./routes/SnippetRoutes");
 require('dotenv').config();
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/blogs", blogRouter);
 app.use("/api/trades", tradeRouter);
+app.use("/api/snippets", snippetRouter);
 
 //configure mongoose
 mongoose.connect(
