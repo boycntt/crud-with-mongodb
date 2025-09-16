@@ -59,5 +59,37 @@
         "responses": { "200": { "description": "deleted" }, "404": { "description": "not found" } }
       }
     }
+  ,
+    "/generate-key": {
+      "post": {
+        "summary": "Generate a single API key and persist it to .env",
+        "description": "Creates a new API key, writes it into the project's .env as API_KEY and returns the raw key. This endpoint is intentionally unprotected so it can be invoked when no key exists — rotate with caution.",
+        "requestBody": {
+          "description": "Optional JSON to control generation (none required)",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "additionalProperties": true }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created - returns the raw API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "apiKey": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "500": { "description": "Server error (for example if .env is not writable)" }
+        }
+      }
+    }
   }
 }
