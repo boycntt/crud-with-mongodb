@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dynamic DB CRUD API",
+    "version": "1.0.0",
+    "description": "Expose dynamic CRUD endpoints for arbitrary collections (use with caution)."
+  },
+  "servers": [{ "url": "http://localhost:3001/api" }],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  },
+  "security": [ { "ApiKeyAuth": [] } ],
+  "paths": {
+    "/db/collections": {
+      "get": {
+        "summary": "List collections",
+        "parameters": [{ "in": "query", "name": "db", "schema": { "type": "string" }, "description": "Optional DB name" }],
+        "responses": { "200": { "description": "ok" } }
+      }
+    },
+    "/db/{collection}": {
+      "get": {
+        "summary": "List documents in a collection",
+        "parameters": [
+          { "in": "path", "name": "collection", "required": true, "schema": { "type": "string" } },
+          { "in": "query", "name": "limit", "schema": { "type": "integer", "default": 50 } },
+          { "in": "query", "name": "db", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "ok" } }
+      },
+      "post": {
+        "summary": "Create document",
+        "parameters": [{ "in": "path", "name": "collection", "required": true, "schema": { "type": "string" } }, { "in": "query", "name": "db", "schema": { "type": "string" } }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object" } } } },
+        "responses": { "201": { "description": "created" } }
+      }
+    },
+    "/db/{collection}/{id}": {
+      "get": {
+        "summary": "Get document by id",
+        "parameters": [{ "in": "path", "name": "collection", "required": true, "schema": { "type": "string" } }, { "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }, { "in": "query", "name": "db", "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "ok" }, "404": { "description": "not found" } }
+      },
+      "put": {
+        "summary": "Update document by id",
+        "parameters": [{ "in": "path", "name": "collection", "required": true, "schema": { "type": "string" } }, { "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }, { "in": "query", "name": "db", "schema": { "type": "string" } }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object" } } } },
+        "responses": { "200": { "description": "ok" }, "404": { "description": "not found" } }
+      },
+      "delete": {
+        "summary": "Delete document by id",
+        "parameters": [{ "in": "path", "name": "collection", "required": true, "schema": { "type": "string" } }, { "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }, { "in": "query", "name": "db", "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "deleted" }, "404": { "description": "not found" } }
+      }
+    }
+  }
+}
