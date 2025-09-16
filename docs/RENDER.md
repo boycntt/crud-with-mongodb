@@ -22,6 +22,8 @@ Hướng dẫn nhanh để deploy ứng dụng Node (Express + MongoDB) này lê
 
 Lưu ý: Không nên dựa vào endpoint `POST /api/generate-key` để ghi file `.env` trên Render vì filesystem của Render là ephemeral và thay đổi khi deploy — tôi đã làm controller trả về key và cả lời nhắc nếu không thể ghi `.env`. Thay vào đó, hãy cấu hình `API_KEY` trực tiếp trong Environment Variables của Render.
 
+    - `CORS_ORIGIN` = (ví dụ `https://your-frontend.com` hoặc `*` cho dev). Nếu không set, server cho phép tất cả nguồn (`*`).
+
 4) Bảo mật
 - Khi đã set `API_KEY` trong Environment, mọi request tới các endpoint được bảo vệ phải gửi header `x-api-key: <API_KEY>`.
 - Để bắt đầu, bạn có thể gọi `POST /api/generate-key` trên môi trường local để tạo khóa hoặc tạo thủ công trong Render dashboard.
