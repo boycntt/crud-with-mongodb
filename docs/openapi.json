@@ -5,7 +5,18 @@
     "version": "1.0.0",
     "description": "Expose dynamic CRUD endpoints for arbitrary collections (use with caution)."
   },
-  "servers": [{ "url": "http://localhost:3001/api" }],
+  "servers": [
+    {
+      "url": "{HOST}/api",
+      "description": "API server - replace HOST with your host (Render URL or localhost)",
+      "variables": {
+        "HOST": {
+          "default": "http://localhost:3001",
+          "description": "Hostname (include protocol and port if needed)"
+        }
+      }
+    }
+  ],
   "components": {
     "securitySchemes": {
       "ApiKeyAuth": {
