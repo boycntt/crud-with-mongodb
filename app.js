@@ -12,7 +12,6 @@ const generateKeyRouter = require('./routes/GenerateKeyRoutes');
 const swaggerUi = require('swagger-ui-express');
 const openapi = require('./docs/openapi.json');
 const apiKey = require('./middleware/apiKey');
-require('dotenv').config();
 
 const app = express();
 //middleware
@@ -27,6 +26,12 @@ app.use("/api/customers", customerRouter);
 
 // Swagger UI (public - use Authorize in the UI to provide credentials)
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapi));
+
+// Health check for platforms like Render
+app.get('/health', (req, res) => {
+  const dbReady = mongoose.connection && mongoose.connection.readyState === 1;
+  res.json({ status: 'ok', db: dbReady ? 'connected' : 'disconnected' });
+});
 
 // Protect DB endpoints with API key middleware
 app.use('/api/db', apiKey, dbRouter);

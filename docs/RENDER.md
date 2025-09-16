@@ -40,3 +40,31 @@ Lưu ý: Không nên dựa vào endpoint `POST /api/generate-key` để ghi file
 Nếu bạn muốn, tôi có thể:
 - Thêm một đoạn mã health-check (ping MongoDB) trước khi server lắng nghe để Render đánh giá trạng thái tốt hơn.
 - Thêm hướng dẫn cURL/PowerShell mẫu để gọi `POST /api/generate-key` và copy kết quả vào Render dashboard.
+
+---
+
+Khuyến nghị chuyên sâu cho Render
+
+- Node version: sử dụng Node LTS (>=16) hoặc ít nhất >=14.21.3 nếu bạn muốn chạy các package mới (một số dependency yêu cầu >=14.21.3). Trong Render dashboard, bạn có thể chọn runtime hoặc thêm `engines` vào `package.json`:
+
+```json
+"engines": { "node": ">=16" }
+```
+
+- Build command: dùng `npm ci` cho reproducible build khi có `package-lock.json`.
+
+- Start command: `npm start` (ứng dụng dùng `node app.js`).
+
+- Health check: Render cho phép cấu hình Health Check URL; đặt nó thành:
+
+```
+/health
+```
+
+  Endpoint `/health` sẽ trả `{ status: 'ok', db: 'connected' }` khi Mongoose đã nối thành công; Render sẽ xem service là healthy khi endpoint trả 200.
+
+- Environment variables: luôn set `MONGODB_URI` và `API_KEY` trong dashboard. Không dựa vào ghi file `.env` runtime.
+
+- Logs & monitoring: xem `Logs` tab trong Render để kiểm tra các lỗi kết nối MongoDB hay lỗi khởi động.
+
+Nếu muốn, tôi có thể thêm vào `package.json` trường `engines` và một script `healthcheck` hoặc cấu hình `start` phù hợp cho Render; nói tôi biết bạn muốn cài `engines` mặc định nào.
