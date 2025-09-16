@@ -12,11 +12,15 @@ const generateKeyRouter = require('./routes/GenerateKeyRoutes');
 const swaggerUi = require('swagger-ui-express');
 const openapi = require('./docs/openapi.json');
 const apiKey = require('./middleware/apiKey');
+const cors = require('cors');
 
 const app = express();
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// CORS: allow from configured origin or allow all in development
+const corsOrigin = process.env.CORS_ORIGIN || '*';
+app.use(cors({ origin: corsOrigin }));
 app.use("/api/blogs", blogRouter);
 app.use("/api/trades", tradeRouter);
 app.use("/api/snippets", snippetRouter);
